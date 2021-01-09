@@ -1,2 +1,2 @@
-# food-finder-ai
-AI to help you find where to eat next 🍕
+# food-finder-chat-bot
+Chatbot to help you find where to eat next 🍕
