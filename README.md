@@ -15,10 +15,6 @@ Technologies & Libraries used
      <li>zomatopy library</li>
     </ul>
   </p>
-<br>
-<h2>
-  
-  <br>
 <h2>
 Typical interaction
   </h2>
