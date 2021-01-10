@@ -8,7 +8,7 @@ Chatbot to help you find where to eat next 🍕 Powered by <a href="https://deve
 
 <br>
 <h2>
-Technologies & Libraries used
+Technologies & Libraries used 🚀
   </h2>
   <p> 
     <ul>
@@ -16,7 +16,8 @@ Technologies & Libraries used
     </ul>
   </p>
 <h2>
-Typical interaction
+  <br>
+Typical interaction 💬🗨
   </h2>
   <p>
   <b>Chatbot</b>: Loading your food finder chatbot...
