@@ -1,4 +1,3 @@
-import AucklandEats
 import auth
 import zomatopy
 
@@ -7,8 +6,28 @@ config = {
 }
 zomato = zomatopy.initialize_app(config)
 
+# Set up constants #
+# coordinates #
+LAT = -36.8483
+LNG = 174.7626
+
+# Auckland city id #
+CITY_ID = 70
+
+# category selection, default to Dine-Out #
+CATEGORY = 'Dine-Out'
+
+# default cuisine id to fast food #
+CUISINE_ID = '40'
+
+# build cuisine list for city #
+# reverse key value pairing #
+cuisines_raw = zomato.get_cuisines(CITY_ID)
+cuisines_sorted = {}
+for k, v in cuisines_raw.items():
+    cuisines_sorted[v] = k
+
 print('Loading your food finder chatbot...')
-aucklandEats = AucklandEats
 
 if __name__ == '__main__':
 
@@ -20,22 +39,22 @@ if __name__ == '__main__':
         if statement == 0:
             continue
 
-        if statement not in aucklandEats.AucklandEats.cuisines_sorted.keys():
+        if statement not in cuisines_sorted.keys():
             print(f'Sorry {statement} is not available.')
         else:
-            aucklandEats.AucklandEats.cuisine_id = aucklandEats.AucklandEats.cuisines_sorted[statement]
+            CUISINE_ID = cuisines_sorted[statement]
             statement = input('Delivery, Takeaway or Dine-out?\n')
 
             if 'Delivery' in statement:
-                aucklandEats.AucklandEats.category = 'Delivery'
-            elif 'Takeaway' in statement:
-                aucklandEats.AucklandEats.category = 'Takeaway'
+                CATEGORY = 'Delivery'
+            if 'Takeaway' in statement:
+                CATEGORY = 'Takeaway'
 
             # We have enough to suggest restaurants #
-            restaurant_ids = zomato.restaurant_search(query=aucklandEats.AucklandEats.category,
-                                                      latitude=aucklandEats.AucklandEats.lat,
-                                                      longitude=aucklandEats.AucklandEats.lng,
-                                                      cuisines=aucklandEats.AucklandEats.cuisine_id)
+            restaurant_ids = zomato.restaurant_search(query=CATEGORY,
+                                                      latitude=LAT,
+                                                      longitude=LNG,
+                                                      cuisines=CUISINE_ID)
 
             if len(restaurant_ids) == 0:
                 print("Couldn't find any restaurants with those options, try again?")
@@ -52,12 +71,11 @@ if __name__ == '__main__':
 
             statement = input('Show menu or Skip?\n')
             while 'Skip' in statement:
-                if len(restaurant_ids)-1 == restaurant_cnt:
+                if len(restaurant_ids) - 1 == restaurant_cnt:
                     restaurant_cnt = 0
                 else:
                     restaurant_cnt += 1
                 restaurant = zomato.get_restaurant(restaurant_ids[restaurant_cnt])
-                aucklandEats.AucklandEats.restaurant = restaurant
 
                 print(f'We recommend...')
                 print(f'{restaurant.get("name")} on {restaurant.get("location")}\n'
@@ -73,7 +91,7 @@ if __name__ == '__main__':
                 if 'number' in statement:
                     print(f'Contact number is {restaurant.get("phone_numbers")}')
                 if 'price' in statement:
-                    print(f'Price is {restaurant.get("price_range")} out of 4')
+                    print(f'Price is rated {restaurant.get("price_range")} out of 4')
                 if 'address' in statement:
                     print(f'Address: {restaurant.get("location")}')
 
