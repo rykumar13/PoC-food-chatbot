@@ -18,7 +18,10 @@ Technologies & Libraries used
 <h2>
 Typical interaction
   </h2>
-  <p> 
+  <p>
+  <b>Chatbot</b>: Loading your food finder chatbot...
+  <br>
+  <br>
 <b>Chatbot</b>: What cuisine would you like to eat?
   <br>
 <b>User</b>: [types cuisine]
@@ -30,6 +33,7 @@ Typical interaction
     <br>
   <br>
   <b>Chatbot</b>: We found 5 places for you!
+  <br>
 We recommend...
   <br>
 White + Wong’s on 149 Quay Street, Viaduct Harbour, Auckland CBD, Auckland
